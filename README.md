@@ -23,6 +23,12 @@ By Stephanie Anshell and Ved Panse
   ></iframe>
 
 ## Assessment of Missingness
+- **Columns with nulls**  
+  - `mean_rating`: X recipes had no ratings → we dropped these for rating analyses.  
+  - `nutrition_*`: Y recipes missing one or more nutrition values → we imputed with the column median.  
+- **Rationale**  
+  - Recipes without any ratings can’t contribute to mean computations.  
+  - Median imputation preserves distribution without skewing for a few outliers.
 
 ## Hypothesis Testing
 
