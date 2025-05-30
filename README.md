@@ -27,13 +27,7 @@ Here’s what we did to clean and explore the data:
 - (-- Add example table later --)
 
 We also made an interactive plot:
-
-<iframe
-  src="assets/your-plot.html"
-  width="800"
-  height="600"
-  frameborder="0"
-></iframe>
+// TODO fill it in here Steph!
 
 ---
 
