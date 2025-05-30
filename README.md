@@ -1,7 +1,7 @@
 # TrueFork
 By Stephanie Anshell and Ved Panse
 
-# Introduction
+## Introduction
 **Project goal**: Analyze Food.com recipes to see if healthy dishes are rated differently than indulgent ones, then build a prediction model for recipe ratings.
 
 **Data source**: mention RAW_recipes.csv and RAW_interactions.csv (recipes since 2008).
@@ -9,7 +9,7 @@ By Stephanie Anshell and Ved Panse
 **Null hypothesis**: There is no difference in mean ratings between healthy and unhealthy recipes.
 
 
-# Data Cleaning and Exploratory Data Analysis
+## Data Cleaning and Exploratory Data Analysis
 - **Merge recipes & interactions** on `id = recipe_id`  
 - **Convert** 0 → `NaN`, compute `mean_rating`  
 - **Parse** `nutrition` into numeric columns  
@@ -22,14 +22,14 @@ By Stephanie Anshell and Ved Panse
     frameborder="0"
   ></iframe>
 
-# Assessment of Missingness
+## Assessment of Missingness
 
-# Hypothesis Testing
+## Hypothesis Testing
 
-# Framing a Prediction Problem
+## Framing a Prediction Problem
 
-# Baseline Model
+## Baseline Model
 
-# Final Model
+## Final Model
 
-# Fairness Analysis
+## Fairness Analysis
