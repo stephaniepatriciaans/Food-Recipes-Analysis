@@ -13,7 +13,7 @@ By Stephanie Anshell and Ved Panse
 - **Merge recipes & interactions** on `id = recipe_id`  
 - **Convert** 0 → `NaN`, compute `mean_rating`  
 - **Parse** `nutrition` into numeric columns  
-- **Example table** (via `.to_markdown()`)  
+- **Example table** (-- later --)  
 - **Interactive plot**:
   <iframe
     src="assets/your-plot.html"
