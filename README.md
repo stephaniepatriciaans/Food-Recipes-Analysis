@@ -26,7 +26,8 @@ Here’s what we did to clean and explore the data:
 - Dropped recipes that didn’t have any valid ratings
 - (-- Add example table later --)
 
-We also made an interactive plot (because it looks cool):  
+We also made an interactive plot:
+
 <iframe
   src="assets/your-plot.html"
   width="800"
