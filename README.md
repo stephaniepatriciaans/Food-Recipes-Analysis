@@ -1,2 +1,2 @@
 # TrueFork
-project for DSC 80 at UCSD
+By Stephanie Anshell and Ved Panse
