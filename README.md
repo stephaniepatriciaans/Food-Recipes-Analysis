@@ -1,72 +1,81 @@
-# TrueFork
+# TrueFork  
 By Stephanie Anshell and Ved Panse
 
-## Introduction
-**Project goal**: Analyze Food.com recipes to see if healthy dishes are rated differently than indulgent ones, then build a prediction model for recipe ratings.
+## Introduction  
+**What we wanted to find out:**  
+We looked at recipes from Food.com to see if healthy dishes are rated any differently than indulgent ones. After that, we tried to build a model that could predict whether a recipe would get a high rating.
 
-**Data source**: We used two datasets from Food.com — `RAW_recipes.csv` and `RAW_interactions.csv` — which include over 200,000 recipes and user interactions dating back to 2008.
+**Where the data came from:**  
+We used two CSVs: `RAW_recipes.csv` and `RAW_interactions.csv`. These include thousands of recipes and user reviews going all the way back to 2008.
 
-**Null hypothesis**: There is no difference in mean ratings between healthy and unhealthy recipes.
+**Our main question:**  
+Do healthy recipes get rated worse than unhealthy ones?  
 
----
-
-## Data Cleaning and Exploratory Data Analysis
-- **Merge recipes & interactions** on `id = recipe_id`
-- **Convert** ratings of 0 to `NaN`, then compute the `avg_rating` per recipe
-- **Parse** the `nutrition` column into separate numerical features such as calories, sugar, fat, etc.
-- **Drop rows** where average rating is missing
-- **Example table** (-- later --)
-- **Interactive plot**:
-  <iframe
-    src="assets/your-plot.html"
-    width="800"
-    height="600"
-    frameborder="0"
-  ></iframe>
+- **Null Hypothesis (H₀):** There's no difference in average ratings between healthy and unhealthy recipes.  
+- **Alternative Hypothesis (H₁):** Unhealthy recipes are rated higher than healthy ones.
 
 ---
 
-## Assessment of Missingness
-We observed missing values in the `rating` column of `RAW_interactions.csv`, where many entries had a rating of 0 (interpreted as missing). These were replaced with `NaN`, and recipes with no valid ratings were excluded from the final analysis to ensure rating calculations were reliable.
+## Data Cleaning and Exploration  
+
+Here’s what we did to clean and explore the data:
+
+- Merged `recipes` and `interactions` on `id = recipe_id`
+- Replaced any rating of 0 with `NaN`, then calculated the average rating per recipe
+- Broke down the `nutrition` field (which was a string) into separate numeric columns like calories, sugar, fat, etc.
+- Dropped recipes that didn’t have any valid ratings
+- (-- Add example table later --)
+
+We also made an interactive plot:
+// TODO fill it in here Steph!
 
 ---
 
-## Hypothesis Testing
+## Missing Data  
 
-**Null Hypothesis (H₀):** The average rating of unhealthy recipes is the same as the average rating of healthy recipes.  
-**Alternative Hypothesis (H₁):** The average rating of unhealthy recipes is greater than the average rating of healthy recipes.
-
-We performed a **permutation test with 5,000 iterations**, using the difference in mean ratings (unhealthy − healthy) as our test statistic.
-
-- **Observed difference**: -0.0031  
-- **p-value**: 0.7248
-
-Since the p-value is significantly higher than 0.05, we **fail to reject the null hypothesis**. There is insufficient evidence to suggest that unhealthy recipes are rated more highly. If anything, healthy recipes may be rated slightly better—but the effect size is negligible and likely due to chance.
+We noticed that a lot of ratings were listed as 0, which probably means they were missing or invalid. We treated those as `NaN`. Recipes that had no valid ratings at all were removed, just so we wouldn’t be basing anything off of empty data.
 
 ---
 
-## Framing a Prediction Problem
+## Hypothesis Testing  
 
-We converted this into a **binary classification** problem:  
-- **Target variable**: `high_rating`, which is True if a recipe's average rating ≥ 4.5  
-- **Features**: Nutrition features (calories, sugar, fat, etc.), number of ingredients, and more
+We ran a permutation test (5,000 iterations) to compare the average ratings of healthy vs. unhealthy recipes.  
 
----
+- **Observed difference:** -0.0031  
+- **p-value:** 0.7248  
 
-## Baseline Model
-
-Our baseline model is a **DummyClassifier** used in the context of a binary classification problem (predicting whether a recipe is highly rated or not). It simply predicts the most frequent class (`high_rating = False`) and achieves an accuracy of around **74.82%** (based on class distribution).
+Since the p-value is way above 0.05, we couldn’t reject the null hypothesis. So, there's no solid evidence that unhealthy recipes are rated higher. If anything, healthy ones might be slightly better rated — but the difference is tiny and probably just random.
 
 ---
 
-## Final Model
+## Prediction Problem  
 
-To improve upon the baseline, we used a **Random Forest Classifier** with engineered features such as calories, sugar, and number of ingredients. This model captures nonlinear feature interactions and typically performs well with minimal tuning.
+We turned this into a yes/no prediction:  
+> Will a recipe get a high rating (4.5 or above)?
 
-If our objective later shifts to interpretability, we plan to use a **Logistic Regression model** to better understand the influence of individual features.
+To do this, we used:
+- Features like calories, sugar, fat, number of ingredients, etc.
+- A binary target column: `high_rating = True` if average rating ≥ 4.5
 
 ---
 
-## Fairness Analysis
+## Baseline Model  
 
-We examined whether our model’s performance differed by recipe categories (e.g., diet-friendly vs. indulgent). Initial fairness checks showed no substantial accuracy gaps, though further fairness audits (e.g., by cuisine or ingredient origin) could be insightful for future work.
+Our starting point was super simple: we used a `DummyClassifier` that always predicts the most common class — which is `high_rating = False`.  
+
+Not surprisingly, it got an accuracy of around **74.82%**, which just reflects the fact that most recipes aren't rated super high.
+
+---
+
+## Final Model  
+
+To do better, we used a **Random Forest Classifier**. It works well with messy data, captures nonlinear patterns, and doesn’t need a ton of tweaking to perform decently. We used features like calories, sugar, fat, and number of ingredients.
+
+If we ever want to understand *why* a recipe gets a good rating, we’d switch to a **Logistic Regression model**, since it’s easier to interpret.
+
+---
+
+## Fairness Check  
+
+We looked at whether the model was being unfair to certain kinds of recipes (like healthy vs. unhealthy).  
+So far, it seems okay — accuracy didn’t vary much across recipe types. That said, more fairness testing (maybe by cuisine or ingredient type) would be interesting for the future.
