@@ -1,2 +1,2 @@
-# Food-Recipes-Analysis
+# TrueFork
 project for DSC 80 at UCSD
