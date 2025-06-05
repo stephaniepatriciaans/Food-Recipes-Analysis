@@ -35,18 +35,36 @@ After merging and cleaning these datasets:
 ---
 
 ## Data Cleaning and Exploration  
+### Dataset Cleaning
 
-Here’s what we did to clean and explore the data:
+We started with two CSVs: `RAW_recipes.csv` and `RAW_interactions.csv`. The recipes dataset includes information like ingredients, cooking steps, and a `nutrition` column (a stringified list of nutrient values). The interactions dataset contains user-submitted ratings and reviews for specific recipe IDs.
 
-- Merged `recipes` and `interactions` on `id = recipe_id`
-- Replaced any rating of 0 with `NaN`, then calculated the average rating per recipe
-- Broke down the `nutrition` field (which was a string) into separate numeric columns like calories, sugar, fat, etc.
-- Dropped recipes that didn’t have any valid ratings
-- (-- Add example table later --)
+### Cleaning Steps:
 
-We also made an interactive plot:
-// TODO fill it in here Steph!
+1. **Merged the Datasets**
+   We merged `RAW_recipes` (left) and `RAW_interactions` (right) on `id = recipe_id`. This gave us a single table with both recipe details and user feedback.
 
+2. **Replaced Invalid Ratings**
+   Some ratings were recorded as `0`, which likely doesn’t indicate a true rating (Food.com uses a 1–5 scale). We treated these as missing by replacing all 0s with `np.nan`.
+
+3. **Computed Average Rating**
+   For each recipe, we computed the average of its valid (non-NaN) ratings and stored this in a new column: `avg_rating`.
+
+4. **Parsed Nutrition Info**
+   The `nutrition` column contained a stringified list of values like `[calories, fat, sugar, sodium, protein, saturated_fat, carbs]`. We parsed this into individual numeric columns.
+
+5. **Created `is_unhealthy` Flag**
+   We created a new column `is_unhealthy`, which is `True` for recipes above the 75th percentile in calories, sugar, and fat — and `False` otherwise. This lets us label recipes as “healthy” or “unhealthy” for hypothesis testing.
+
+6. **Kept NaNs in `avg_rating` for Now**
+   Recipes with no valid ratings have `NaN` in `avg_rating`. Instead of dropping them during cleaning, we left them in and filtered them out only when needed (e.g. in hypothesis testing or modeling).
+
+These steps were necessary to ensure that downstream analysis (e.g. comparing healthy vs. unhealthy recipe ratings) relied only on meaningful, interpretable data. Without parsing the nutrition column or addressing the invalid ratings, we’d risk basing conclusions on broken or irrelevant inputs.
+
+### Cleaned Dataset Preview
+
+Here’s the head of our cleaned dataset:
+![Preview of cleaned dataset head](images/step2-head.png)
 ---
 
 ## Missing Data  
