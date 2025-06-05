@@ -65,6 +65,7 @@ These steps were necessary to ensure that downstream analysis (e.g. comparing he
 
 Here’s the head of our cleaned dataset:
 ![Preview of cleaned dataset head](images/step2-head.png)
+
 ---
 
 ## Missing Data  
