@@ -1,18 +1,36 @@
 # TrueFork  
 By Stephanie Anshell and Ved Panse
+---
+## Introduction
 
-## Introduction  
-**What we wanted to find out:**  
-We looked at recipes from Food.com to see if healthy dishes are rated any differently than indulgent ones. After that, we tried to build a model that could predict whether a recipe would get a high rating.
+**What we wanted to find out:**
+We explored a massive dataset of Food.com recipes and user reviews to answer one simple but important question:
+**Are healthy recipes rated worse than unhealthy ones?**
 
-**Where the data came from:**  
-We used two CSVs: `RAW_recipes.csv` and `RAW_interactions.csv`. These include thousands of recipes and user reviews going all the way back to 2008.
+**Why this question matters:**
+Nutrition-conscious cooks often wonder whether choosing healthier meals means sacrificing taste—or at least, popularity. If online ratings tend to favor indulgent dishes, this might skew what people choose to cook or share. Our analysis helps shed light on potential biases in online recipe ratings and could be useful to food bloggers, nutritionists, or anyone curious about how healthiness affects perception.
 
-**Our main question:**  
-Do healthy recipes get rated worse than unhealthy ones?  
+**Where the data came from:**
+We used two files from Food.com:
 
-- **Null Hypothesis (H₀):** There's no difference in average ratings between healthy and unhealthy recipes.  
-- **Alternative Hypothesis (H₁):** Unhealthy recipes are rated higher than healthy ones.
+* `RAW_recipes.csv`, which includes over 230,000 recipes with ingredients, cooking time, and nutrition information.
+* `RAW_interactions.csv`, which contains nearly 1 million user ratings and reviews, dating back to 2008.
+
+After merging and cleaning these datasets:
+
+* We analyzed a dataset of **83,782 recipes** and **13 columns**, each with an associated **average rating** based on user feedback.
+* Key columns we used in our analysis:
+
+  * `nutrition`: A list of values (as a string) containing calories, fat, sugar, etc.
+  * `avg_rating`: The average rating a recipe received (from 1.0 to 5.0).
+  * `is_unhealthy`: A binary column we created to label recipes as unhealthy if their calorie or sugar content exceeded a certain threshold.
+
+**Our main question (framed for statistical testing):**
+
+> **Do unhealthy recipes receive higher average ratings than healthy ones?**
+
+* **Null Hypothesis (H₀):** There's no difference in average ratings between healthy and unhealthy recipes.
+* **Alternative Hypothesis (H₁):** Unhealthy recipes are rated higher than healthy ones.
 
 ---
 
