@@ -91,7 +91,7 @@ We explored interactions between pairs of variables to identify potential associ
 
 We grouped the recipes by whether they were healthy or unhealthy, and computed key statistics for each group:
 
-| Recipe Type | Avg Rating | # Ingredients (avg) | # Recipes |
+| Recipe Type | Avg Rating | Num ingredients (avg) | Num recipes |
 |-------------|------------|----------------------|-----------|
 | Healthy     | 4.63       | 8.81                 | 62,933    |
 | Unhealthy   | 4.62       | 10.43                | 20,849    |
