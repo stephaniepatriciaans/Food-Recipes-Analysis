@@ -134,12 +134,32 @@ The resulting **p-value was 0.1210**, which is greater than the standard 0.05 th
 
 ## Hypothesis Testing  
 
-We ran a permutation test (5,000 iterations) to compare the average ratings of healthy vs. unhealthy recipes.  
+### Question
 
-- **Observed difference:** -0.0031  
-- **p-value:** 0.7248  
+Do unhealthy recipes tend to get higher average ratings than healthy recipes?
 
-Since the p-value is way above 0.05, we couldn’t reject the null hypothesis. So, there's no solid evidence that unhealthy recipes are rated higher. If anything, healthy ones might be slightly better rated — but the difference is tiny and probably just random.
+### Hypotheses
+
+- **Null Hypothesis (H₀):** There is no difference in average ratings between healthy and unhealthy recipes.
+- **Alternative Hypothesis (H₁):** Unhealthy recipes are rated higher than healthy ones.
+
+### Test Details
+
+- **Test Type:** One-sided permutation test  
+- **Test Statistic:** Difference in mean average rating between unhealthy and healthy recipes  
+- **Significance Level (α):** 0.05  
+- **Observed Difference:** -0.0031  
+- **p-value:** 0.7248
+
+We chose a permutation test because it doesn’t rely on assumptions about normality and works well for comparing group means in small or skewed samples. The difference in means is a natural test statistic for our question.
+
+![Hypothesis testing result](images/hypothesis.png)
+
+### Interpretation
+
+The p-value of 0.7248 is far above the standard 0.05 threshold, so we **fail to reject the null hypothesis**. This means we don’t have strong statistical evidence that unhealthy recipes are rated higher than healthy ones. In fact, the observed difference was slightly negative, suggesting that healthy recipes might even be rated a bit better — but the difference is small and likely due to random variation.
+
+This supports our overall finding: **Healthiness doesn’t appear to significantly impact a recipe’s rating** on Food.com.
 
 ---
 
