@@ -165,31 +165,53 @@ This supports our overall finding: **Healthiness doesn’t appear to significant
 
 ## Prediction Problem  
 
-Our goal is to **predict whether a recipe will receive at least one user rating**. This is a **binary classification** task where the target is:
+We aim to predict a recipe’s average user rating (`avg_rating`) based on features that are known at the time the recipe is submitted.
 
-- `label = True` if the recipe has one or more ratings.
-- `label = False` otherwise.
+### Prediction Type
+This is a **regression** task, since `avg_rating` is a continuous numerical variable ranging from 0 to 5.
 
-This prediction problem helps us understand what kinds of recipes are likely to attract user engagement on Food.com. It could be useful for platforms that want to recommend or highlight recipes that are more likely to be rated.
+### Response Variable
+We chose `avg_rating` as the response variable because it reflects the overall quality of a recipe as judged by users, and is a key indicator of popularity and success on the platform.
 
-### Features and Evaluation
+### Evaluation Metric
+We will evaluate the performance of our regression models using **Root Mean Squared Error (RMSE)**. This metric is appropriate because:
+- It penalizes larger errors more than smaller ones, which makes sense in this context (e.g. a prediction off by 2 stars is worse than one off by 0.5).
+- It's easily interpretable in the units of the response variable (rating stars).
 
-We use features that would be available **before** any ratings are submitted, such as:
-- `calories`
-- `minutes` (time to prepare)
-- `n_ingredients`
-- Basic nutritional info
-- Recipe metadata (but **not** rating columns)
-
-We chose **accuracy** as our evaluation metric because our classes are fairly balanced, and we want to correctly classify both rated and unrated recipes without favoring one over the other. Other metrics like precision or F1-score are less applicable here since false positives and false negatives don't have unequal consequences.
+### Time of Prediction Justification
+We restrict our input features to those available before any ratings are given — such as calories, number of ingredients, and total preparation time — to simulate a realistic scenario where we want to **predict a recipe’s success before anyone rates it**.
 
 ---
 
 ## Baseline Model  
 
-Our starting point was super simple: we used a `DummyClassifier` that always predicts the most common class — which is `high_rating = False`.  
+To predict the average rating (`avg_rating`) of a recipe, we built a baseline regression model using a **Linear Regression** pipeline.
 
-Not surprisingly, it got an accuracy of around **74.82%**, which just reflects the fact that most recipes aren't rated super high.
+### Features Used
+
+We selected the following **quantitative** features:
+- `minutes`: Number of minutes to make the recipe.
+- `n_steps`: Number of steps involved in the recipe.
+- `n_ingredients`: Number of ingredients in the recipe.
+
+These features are all numerical (quantitative), so no categorical encoding was required. We standardized the features using **`StandardScaler`** to ensure that each has mean 0 and variance 1, which helps the linear model perform optimally.
+
+### Model Architecture
+
+We implemented our model using an `sklearn` pipeline consisting of:
+1. A `ColumnTransformer` that applies `StandardScaler` to all features.
+2. A `LinearRegression` estimator to predict `avg_rating`.
+
+### Evaluation
+
+We trained our model on 75% of the data and evaluated it on the remaining 25%. Our **Root Mean Squared Error (RMSE)** on the test set was:
+
+`Test RMSE: 0.6391`
+
+
+### Interpretation
+
+An RMSE of 0.6391 means that our model's predictions are typically off by about 0.64 stars on a 5-star rating scale. While this baseline model is simple, it establishes a benchmark we can compare against in the next step when we experiment with more complex models.
 
 ---
 
