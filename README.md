@@ -108,6 +108,28 @@ Here’s why: when someone doesn’t leave a rating, it might be because they ch
 
 If we had more information—like whether a user viewed or started a recipe but didn’t rate it—we might be able to argue that the missingness is just random or at least explainable by other factors (which would make it MAR instead). But with the data we have, it seems most likely that missing ratings are tied to something we can’t observe directly, like the user’s experience or opinion. That’s why we consider them NMAR.
 
+### Missingness Dependency
+
+We investigated whether missing values in the `rating` column are dependent on other variables in the dataset by running permutation tests.
+
+#### Columns That Affect Missingness
+
+We found that the **number of ingredients** in a recipe has a strong effect on whether a rating is missing.
+
+![Missingness with number of ingredients](images/missing_vs_n_ingredients.png)
+
+The plot above shows the empirical distribution of differences in mean `n_ingredients` between missing and non-missing `rating` values under the null hypothesis (that there's no relationship). Since the observed statistic lies far in the tail of the distribution, we obtain a **very low p-value (p ≈ 0.0000)** and cannot even see the red-line, indicating strong evidence that missingness in `rating` **depends on** the number of ingredients.
+
+This suggests that **simpler recipes (with fewer ingredients) are more likely to be unrated**, possibly because users are less motivated to review very basic dishes.
+
+#### A Column That Doesn’t Affect Missingness
+
+We also ran a permutation test to check whether missingness in `rating` depends on the `minutes` column (i.e., how long a recipe takes to make).
+
+![Missingness with minutes](images/missing_vs_minutes.png)
+
+The resulting **p-value was 0.1210**, which is greater than the standard 0.05 threshold. This indicates that we don’t have statistically significant evidence that missingness in `rating` depends on how long a recipe takes to make. So, **we conclude that missingness in `rating` is independent of `minutes`**.
+
 ---
 
 ## Hypothesis Testing  
