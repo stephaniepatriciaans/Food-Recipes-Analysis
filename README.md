@@ -249,7 +249,28 @@ While the performance gain is minimal, the thought process behind feature engine
 
 ---
 
-## Fairness Check  
+## Fairness Analysis
 
-We looked at whether the model was being unfair to certain kinds of recipes (like healthy vs. unhealthy).  
-So far, it seems okay — accuracy didn’t vary much across recipe types. That said, more fairness testing (maybe by cuisine or ingredient type) would be interesting for the future.
+To ensure our final model works fairly across different types of recipes, we performed a fairness analysis comparing model performance across **short** and **long** recipes.
+
+### Group Definitions
+- **Group X:** Short recipes (less than 30 minutes)
+- **Group Y:** Long recipes (30 minutes or more)
+
+### Evaluation Metric
+Since our prediction task involves estimating a continuous value (`avg_rating`), we used **Root Mean Squared Error (RMSE)** to assess prediction accuracy across both groups.
+
+### Hypotheses
+- **Null Hypothesis (H₀):** The model is fair; the RMSE for short and long recipes is approximately equal, and any observed difference is due to chance.
+- **Alternative Hypothesis (H₁):** The model is unfair; it performs worse (i.e., higher RMSE) on short recipes than on long ones.
+
+### Test Statistic and Significance
+- **Test Statistic:** Difference in RMSE (short - long)
+- **Significance Level:** 0.05
+- **Observed RMSE Difference:** -0.0432
+- **p-value:** 1.0000
+
+### Conclusion
+Since the p-value is extremely high (1.0), we **fail to reject the null hypothesis**. There is no evidence that our model is unfair based on recipe preparation time. The small observed RMSE difference is likely due to random variation.
+
+![Fairness analysis plot](images/fairness_analysis.png)
