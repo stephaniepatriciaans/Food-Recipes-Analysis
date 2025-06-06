@@ -101,8 +101,12 @@ Unhealthy recipes tend to involve more ingredients, but their average ratings ar
 ---
 
 ## Missing Data  
+### NMAR Analysis
+We think the missing values in the `rating` column are **Not Missing At Random (NMAR)**.
 
-We noticed that a lot of ratings were listed as 0, which probably means they were missing or invalid. We treated those as `NaN`. Recipes that had no valid ratings at all were removed, just so we wouldn’t be basing anything off of empty data.
+Here’s why: when someone doesn’t leave a rating, it might be because they chose not to—maybe they didn’t like the recipe, forgot, or just weren’t interested enough to bother. In other words, the fact that a rating is missing could be related to how the user actually felt about the recipe (even though we don’t see that rating). That’s the classic definition of NMAR: the missingness depends on the missing value itself.
+
+If we had more information—like whether a user viewed or started a recipe but didn’t rate it—we might be able to argue that the missingness is just random or at least explainable by other factors (which would make it MAR instead). But with the data we have, it seems most likely that missing ratings are tied to something we can’t observe directly, like the user’s experience or opinion. That’s why we consider them NMAR.
 
 ---
 
