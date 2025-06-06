@@ -66,6 +66,27 @@ These steps were necessary to ensure that downstream analysis (e.g. comparing he
 Here’s the head of our cleaned dataset:
 ![Preview of cleaned dataset head](images/step2-head.png)
 
+### Univariate Analysis
+
+We explored the distributions of two key variables in our dataset: average recipe rating and calorie content.
+
+The **average rating** distribution is heavily skewed toward 5.0, meaning users tend to rate recipes very highly.
+![Univariate rating distribution](images/univariate-1.png)
+
+The **calorie distribution** is also skewed, with most recipes having under 1,000 calories but a few extreme outliers well above 30,000.
+![Univariate calorie distribution](images/univariate-2.png)
+
+### Bivariate Analysis
+
+We explored interactions between pairs of variables to identify potential associations.
+
+- **Calories vs. Average Rating:**  
+  The scatter plot shows no clear trend — both high- and low-calorie recipes tend to receive high ratings. Calorie content doesn't seem to be a strong factor in how users rate recipes.
+![Bivariate calories vs average rating](images/bivariate-1.png)
+- **Healthiness vs. Average Rating:**  
+  We compared the ratings of healthy and unhealthy recipes using a box plot. Although the unhealthy group appears to have a slightly lower median rating, the difference is subtle. This prompted our hypothesis test in Step 4.
+![Bivariate healthiness vs average rating](images/bivariate-2.png)
+
 ---
 
 ## Missing Data  
