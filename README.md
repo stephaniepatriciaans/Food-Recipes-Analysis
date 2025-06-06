@@ -87,6 +87,17 @@ We explored interactions between pairs of variables to identify potential associ
   We compared the ratings of healthy and unhealthy recipes using a box plot. Although the unhealthy group appears to have a slightly lower median rating, the difference is subtle. This prompted our hypothesis test in Step 4.
 ![Bivariate healthiness vs average rating](images/bivariate-2.png)
 
+### Interesting Aggregates
+
+We grouped the recipes by whether they were healthy or unhealthy, and computed key statistics for each group:
+
+| Recipe Type | Avg Rating | # Ingredients (avg) | # Recipes |
+|-------------|------------|----------------------|-----------|
+| Healthy     | 4.63       | 8.81                 | 62,933    |
+| Unhealthy   | 4.62       | 10.43                | 20,849    |
+
+Unhealthy recipes tend to involve more ingredients, but their average ratings are essentially the same as healthy ones. This suggests that users don’t seem to penalize or prefer recipes based on healthiness alone.
+
 ---
 
 ## Missing Data  
