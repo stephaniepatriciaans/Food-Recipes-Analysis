@@ -215,11 +215,37 @@ An RMSE of 0.6391 means that our model's predictions are typically off by about 
 
 ---
 
-## Final Model  
+## Final Model
 
-To do better, we used a **Random Forest Classifier**. It works well with messy data, captures nonlinear patterns, and doesn’t need a ton of tweaking to perform decently. We used features like calories, sugar, fat, and number of ingredients.
+To improve on our Baseline Model, we engineered two additional features:
 
-If we ever want to understand *why* a recipe gets a good rating, we’d switch to a **Logistic Regression model**, since it’s easier to interpret.
+- **Log-transformed `minutes`**: Recipe preparation time is often right-skewed. Taking a log helps reduce this skew and may improve linear model performance.
+- **Binned `n_ingredients`**: Grouping the number of ingredients into bins can help capture general complexity trends in recipes without overfitting to exact counts.
+
+We used a `RandomForestRegressor` as our model, as it handles nonlinearities and interactions well without requiring heavy preprocessing.
+
+### Hyperparameter Tuning
+
+We used `GridSearchCV` with 5-fold cross-validation to tune the following hyperparameters:
+
+- `max_depth`: [5, 10, 15]
+- `n_estimators`: [50, 100]
+- `max_features`: ['sqrt', 'log2']
+
+The best-performing hyperparameters were:
+
+- `max_depth = 10`
+- `n_estimators = 50`
+- `max_features = 'sqrt'`
+
+### Performance
+
+- **Baseline RMSE**: 0.6391
+- **Final Model RMSE**: 0.6388
+
+This is a very small improvement, suggesting that recipe ratings are inherently difficult to predict using the features available at the time of recipe submission. Nonetheless, the model's ability to generalize improved, albeit slightly.
+
+While the performance gain is minimal, the thought process behind feature engineering and hyperparameter tuning ensures the model is better suited to capture nonlinear relationships in the data.
 
 ---
 
