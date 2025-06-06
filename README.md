@@ -165,12 +165,23 @@ This supports our overall finding: **Healthiness doesn’t appear to significant
 
 ## Prediction Problem  
 
-We turned this into a yes/no prediction:  
-> Will a recipe get a high rating (4.5 or above)?
+Our goal is to **predict whether a recipe will receive at least one user rating**. This is a **binary classification** task where the target is:
 
-To do this, we used:
-- Features like calories, sugar, fat, number of ingredients, etc.
-- A binary target column: `high_rating = True` if average rating ≥ 4.5
+- `label = True` if the recipe has one or more ratings.
+- `label = False` otherwise.
+
+This prediction problem helps us understand what kinds of recipes are likely to attract user engagement on Food.com. It could be useful for platforms that want to recommend or highlight recipes that are more likely to be rated.
+
+### Features and Evaluation
+
+We use features that would be available **before** any ratings are submitted, such as:
+- `calories`
+- `minutes` (time to prepare)
+- `n_ingredients`
+- Basic nutritional info
+- Recipe metadata (but **not** rating columns)
+
+We chose **accuracy** as our evaluation metric because our classes are fairly balanced, and we want to correctly classify both rated and unrated recipes without favoring one over the other. Other metrics like precision or F1-score are less applicable here since false positives and false negatives don't have unequal consequences.
 
 ---
 
